@@ -2,42 +2,71 @@ import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
+import { DeleteContact } from '../../Redux/Action/ContactAction';
 
-export default function ShowContact()
-{
-    const contactSelector = useSelector((state) => state.contacts)
-    console.log("contactSelector ",contactSelector)
-    return (
-        
-        <table className="table container">
-          <thead>
-            <tr>
-              <th scope="col">#</th>
-              <th scope="col">First</th>
-              <th scope="col">Last</th>
-              <th scope="col">Handle</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <th scope="row">1</th>
-              <td>Mark</td>
-              <td>Otto</td>
-              <td>@mdo</td>
-            </tr>
-            <tr>
-              <th scope="row">2</th>
-              <td>Jacob</td>
-              <td>Thornton</td>
-              <td>@fat</td>
-            </tr>
-            <tr>
-              <th scope="row">3</th>
-              <td>Larry</td>
-              <td>the Bird</td>
-              <td>@twitter</td>
-            </tr>
-          </tbody>
-        </table>
-      );
+export default function ShowContact() {
+  let history = useHistory();
+  const dispatch = useDispatch()
+
+  const submithandler = () => {
+    history.push("/ContactForm");
+  }
+  // const deleteda = () =>{
+  //    dispatch(DeleteContact(contacts.id));
+  // }
+  const contactSelector = useSelector((state) => state.contacts.contacts)
+  console.log("contactSelector ", contactSelector)
+
+  return (
+    <div className="container">
+      <div className="row d-flex flex-column">
+
+        <div className="col-md-10 mx-auto my-4">
+          <table className="table table-hover">
+            <thead className="table-header bg-dark text-white">
+              <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Email</th>
+                <th scope="col">Mobile</th>
+                <th scope="col"></th>
+              </tr>
+            </thead>
+            <tbody>
+              {contactSelector.map(contacts => (
+                <tr>
+                  <td>{contacts.id}</td>
+                  <td>{contacts.Email}</td>
+                  <td>{contacts.Number}</td>
+                  <td>
+
+                    <button
+                      type="button"
+                      onClick={() => dispatch(DeleteContact(contacts.id))}
+                      // onClick={deleteda}
+                      className="btn btn-sm btn-danger mx-3"
+                    >
+                      Delete
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => history.push("/UpdateContact")}
+                      className="btn btn-sm btn-primary"
+                    >
+                      Update
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+          <button type="button" onClick={submithandler} className="btn btn-outline-dark btn-sm ">Add Contact</button>
+        </div>
+      </div>
+    </div>
+
+  );
+
+
+
 }
