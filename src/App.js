@@ -5,7 +5,6 @@ import ContactForm from './components/ContactForm';
 import store from './Store';
 import { Provider } from 'react-redux';
 import ShowContact from './components/ContactList';
-import UpdateContact from './components/UpdateContact';
 import Navbar from './components/NavBar';
 
 
@@ -20,7 +19,8 @@ function App() {
             
             <Route path="/ContactForm" exact component={ContactForm} />
             <Route path="/ShowContact" exact component={ShowContact}/>
-            <Route path="/UpdateContact" exact component={UpdateContact}/>
+            <Route path="/edit/:id" exact component={ContactForm}/>
+
           </Switch>
         </BrowserRouter>
       </Provider>

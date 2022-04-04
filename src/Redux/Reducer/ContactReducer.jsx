@@ -37,7 +37,22 @@ export const ContactReducer = (state = initialstate, action) => {
             (contact) => contact.id != action.payload
           ),
         };
-        
+
+      }
+      case "GET_CONTACT":
+        {
+        let arr = state.contacts.filter(
+          (contact) => contact.id == action.paylaod
+        );
+        console.log("getReducer", arr)
+        arr = arr.values();
+        for (let val of arr) {
+          arr = val;
+        }
+        return {
+          ...state,
+          contact: arr,
+        };
       }
     default:
       return state;

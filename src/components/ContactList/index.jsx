@@ -48,13 +48,9 @@ export default function ShowContact() {
                     >
                       Delete
                     </button>
-                    <button
-                      type="button"
-                      onClick={() => history.push("/UpdateContact")}
-                      className="btn btn-sm btn-primary"
-                    >
-                      Update
-                    </button>
+                    <Link to={`/edit/${contacts.id}`}>
+                      <span>edit</span>
+                    </Link>
                   </td>
                 </tr>
               ))}

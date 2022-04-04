@@ -1,16 +1,20 @@
 import React from 'react'
 import { useState } from 'react'
 import { useDispatch } from "react-redux";
-import { useHistory } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import { AddContact } from '../../Redux/Action/ContactAction';
 import shortid from "shortid";
 
 export default function ContactForm() {
+
+  let { id } = useParams();
+  console.log("id",id);
   let history = useHistory();
   const dispatch = useDispatch()
   const [Email, setEmail] = useState('');
   const [number, setnumber] = useState('');
 
+  
   const submithandler = () => {
 
     const formdata = {
@@ -25,9 +29,9 @@ export default function ContactForm() {
     history.push("/ShowContact");
   }
   return (
-    
+
     <div className="container-fluid">
-      <h1 className="text-center text-dark py-3 display-2" style={{fontSize:40, fontWeight:"bold"}}>Contact Form</h1>
+      <h1 className="text-center text-dark py-3 display-2" style={{ fontSize: 40, fontWeight: "bold" }}>Contact Form</h1>
       <div className="row">
         <div className="col-md-6 p-5 mx-auto shadow">
           <form >
