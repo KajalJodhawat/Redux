@@ -25,9 +25,9 @@ export const ContactReducer = (state = initialstate, action) => {
           ...state,
           contacts: [action.payload, ...state.contacts],
         };
-        
+
       }
-      case "DELETE_CONTACT":
+    case "DELETE_CONTACT":
       {
         console.log("deleteReducer", action)
         console.log("deletestate", state)
@@ -39,19 +39,22 @@ export const ContactReducer = (state = initialstate, action) => {
         };
 
       }
-      case "GET_CONTACT":
-        {
+    case "GET_CONTACT":
+      {
+        console.log("getconatct", action.payload);
         let arr = state.contacts.filter(
-          (contact) => contact.id == action.paylaod
+          (contact) => contact.id == action.payload
         );
-        console.log("getReducer", arr)
+
         arr = arr.values();
+        
         for (let val of arr) {
           arr = val;
         }
+        console.log("getReducer", arr);
         return {
           ...state,
-          contact: arr,
+          contacts: arr,
         };
       }
     default:
