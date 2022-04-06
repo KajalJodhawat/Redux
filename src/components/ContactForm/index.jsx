@@ -2,7 +2,7 @@ import React from 'react'
 import { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router-dom";
-import { AddContact, getContact } from '../../Redux/Action/ContactAction';
+import { AddContact, getContact, updateContact } from '../../Redux/Action/ContactAction';
 
 import shortid from "shortid";
 
@@ -14,21 +14,33 @@ export default function ContactForm() {
   const dispatch = useDispatch()
   const [Email, setEmail] = useState('');
   const [number, setnumber] = useState('');
-  const getcontactSelector = useSelector((state) => state.contacts.contacts)
+  const getcontactSelector = useSelector((state) => state.contacts.contact)
   console.log("getcongetcontactSelector", getcontactSelector);
 
-  const submithandler = () => {
+  const submithandler = (e) => {
+     e.preventDefault()
 
     const formdata = {
       id: shortid.generate(),
       Email: Email,
       Number: number
     }
+    if (id) {
+      const formdata = {
+        id: id,
+        Email: Email,
+        Number: number
+      }
+      dispatch(updateContact(formdata));
+      history.push("/ShowContact");
+    }
 
-
-    dispatch(AddContact(formdata));
-    console.log("formdata" + JSON.stringify(formdata));
-    history.push("/ShowContact");
+    else {
+      dispatch(getContact(""));
+      dispatch(AddContact(formdata));
+      console.log("formdata" + JSON.stringify(formdata));
+      history.push("/ShowContact");
+    }
   }
   useEffect(() => {
     if (id) {
@@ -76,12 +88,12 @@ export default function ContactForm() {
                 onClick={submithandler}
                 className="btn btn-block btn-dark"
               >
-                Add Contact
+                {id ? "Update Contact" : "Add Contact"}
               </button>
             </div>
-            
+
           </form>
-          
+
         </div>
       </div>
 

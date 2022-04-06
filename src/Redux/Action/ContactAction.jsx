@@ -24,4 +24,13 @@ export const getContact = (getdata) => (
     }
 );
 
+export const updateContact = (updatedata) => (
+    console.log("updateContactAction", updatedata),
+    {
+        type: "UPDATE_CONTACT",
+        payload: updatedata,
+    
+    }
+);
+
 

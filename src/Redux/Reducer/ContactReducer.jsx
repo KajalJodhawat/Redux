@@ -54,7 +54,19 @@ export const ContactReducer = (state = initialstate, action) => {
         console.log("getReducer", arr);
         return {
           ...state,
-          contacts: arr,
+          contact: arr,
+        };
+
+      }
+
+      case "UPDATE_CONTACT": {
+        console.log(action.payload);
+        console.log("mmm",state.contacts);
+        return {
+          ...state,
+          contacts: state.contacts.map((contact) =>
+          contact.id == action.payload.id ? action.payload : contact
+          ),
         };
       }
     default:
